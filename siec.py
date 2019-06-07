@@ -14,10 +14,10 @@ iris = datasets.load_iris()
 
 X = iris['data']
 y = iris['target']
+
 print(iris.keys())
 print(iris["target_names"])
 print(iris["feature_names"])
-print(y)
 
 s_l = []
 p_l = []
@@ -80,7 +80,7 @@ plt.xlabel('Petal width [cm]')
 plt.ylabel('Petal length [cm]')
 plt.legend()
 
-plt.show()
+#plt.show()
 
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -94,12 +94,14 @@ X_test_std = sc.transform(X_test)
 
 #ppn = Perceptron(max_iter=40, eta0=0.1, random_state=0)
 #ppn.fit(X_train_std, y_train)
-mlp = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10), activation="relu", solver='adam', max_iter=1000)
 mlp.fit(X_train, y_train)  
 
 
 #y_pred = ppn.predict(X_test_std)
 y_pred = mlp.predict(X_test)
+
+
 print(y_pred)
 print(y_test)
 print(len(y_test))
