@@ -7,12 +7,65 @@ from sklearn.metrics import accuracy_score
 from sklearn.neural_network import MLPClassifier  
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 iris = datasets.load_iris()
 
 X = iris['data']
 y = iris['target']
+print(iris.keys())
+print(iris["target_names"])
+print(iris["feature_names"])
+print(y)
+
+s_l = []
+p_l = []
+s_w = []
+p_w = []
+kolor = []
+nazwa = ['Setosa', 'Versicolor', 'Virginica', '']
+for i in range(0, 150):
+    s_l.append(X[i][0])
+    p_l.append(X[i][2])
+    s_w.append(X[i][1])
+    p_w.append(X[i][3])
+    if(y[i] == 0):
+        kolor.append('ro')
+    elif(y[i] == 1):
+        kolor.append('go')
+    elif(y[i] == 2):
+        kolor.append('bo')
+
+for i in range(0, 150):
+    if(i==0):
+        n = nazwa[0]
+    elif(i==50):
+        n = nazwa[1]
+    elif(i==100):
+        n = nazwa[2]
+    else:
+        n = nazwa[3]
+    
+    plt.subplot(211)
+    plt.plot(s_l[i], p_l[i], color=kolor[i][0], marker=kolor[i][1], label=n)
+    plt.subplot(212)
+    plt.plot(s_w[i], p_w[i], color=kolor[i][0], marker=kolor[i][1], label=n)
+
+plt.subplot(211)
+plt.title("Petal(Sepal) length")
+plt.xlabel('Sepal length [cm]')
+plt.ylabel('Petal length [cm]')
+plt.legend()
+
+plt.subplot(212)
+plt.title("Petal(Sepal) width")
+plt.xlabel('Sepal width [cm]')
+plt.ylabel('Petal width [cm]')
+plt.legend()
+
+plt.show()
+
 
 #print(y[:5])
 #print(X[:5])
