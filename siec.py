@@ -46,29 +46,42 @@ for i in range(0, 150):
         n = nazwa[2]
     else:
         n = nazwa[3]
-    
-    plt.subplot(211)
-    plt.plot(s_l[i], p_l[i], color=kolor[i][0], marker=kolor[i][1], label=n)
-    plt.subplot(212)
-    plt.plot(s_w[i], p_w[i], color=kolor[i][0], marker=kolor[i][1], label=n)
 
-plt.subplot(211)
+    plt.subplot(221)
+    plt.plot(s_l[i], p_l[i], color=kolor[i][0], marker=kolor[i][1], label=n)
+    plt.subplot(222)
+    plt.plot(s_w[i], p_w[i], color=kolor[i][0], marker=kolor[i][1], label=n)
+    plt.subplot(223)
+    plt.plot(s_l[i], s_w[i], color=kolor[i][0], marker=kolor[i][1], label=n)
+    plt.subplot(224)
+    plt.plot(p_w[i], p_l[i], color=kolor[i][0], marker=kolor[i][1], label=n)
+
+plt.subplot(221)
 plt.title("Petal(Sepal) length")
 plt.xlabel('Sepal length [cm]')
 plt.ylabel('Petal length [cm]')
 plt.legend()
 
-plt.subplot(212)
+plt.subplot(222)
 plt.title("Petal(Sepal) width")
 plt.xlabel('Sepal width [cm]')
 plt.ylabel('Petal width [cm]')
 plt.legend()
 
+plt.subplot(223)
+plt.title("Sepal_len(Sepal_wid)")
+plt.xlabel('Sepal width [cm]')
+plt.ylabel('Sepal length [cm]')
+plt.legend()
+
+plt.subplot(224)
+plt.title("Petal_len(Petal_wid)")
+plt.xlabel('Petal width [cm]')
+plt.ylabel('Petal length [cm]')
+plt.legend()
+
 plt.show()
 
-
-#print(y[:5])
-#print(X[:5])
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
