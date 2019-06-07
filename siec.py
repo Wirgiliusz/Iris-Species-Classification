@@ -106,4 +106,4 @@ print(y_pred)
 print(y_test)
 print(len(y_test))
 
-print('Accuracy: %.2f' % accuracy_score(y_test, y_pred))
+print('Accuracy: %.2f' % (accuracy_score(y_test, y_pred)*100), "%")
