@@ -24,7 +24,7 @@ cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
 
 # Sieci
 
-knn = KNeighborsClassifier(n_neighbors=15)
+clf = KNeighborsClassifier(n_neighbors=15)
 
 clf.fit(X,y)
 mlp.fit(X,y)
