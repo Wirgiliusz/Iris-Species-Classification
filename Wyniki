@@ -4,3 +4,9 @@ no std
     MLP (tanh, adam): 96.67 %
     MLP (relu, sgd): 93.20 %
     MLP (tanh, sgd): 93.20 %
+
+std
+MLP (relu, adam): 93.87 %
+MLP (tanh, adam): 93.30 %
+MLP (relu, sgd): 91.53 %
+MLP (tanh, sgd): 92.77 %

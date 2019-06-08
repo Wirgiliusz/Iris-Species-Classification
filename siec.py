@@ -138,10 +138,10 @@ for i in range(0,100):
     mlp2.fit(X_train_std, y_train)  
     mlp3.fit(X_train_std, y_train)  
     mlp4.fit(X_train_std, y_train)  
-    y_pred_mlp1 = mlp1.predict(X_test)
-    y_pred_mlp2 = mlp2.predict(X_test)
-    y_pred_mlp3 = mlp3.predict(X_test)
-    y_pred_mlp4 = mlp4.predict(X_test)
+    y_pred_mlp1 = mlp1.predict(X_test_std)
+    y_pred_mlp2 = mlp2.predict(X_test_std)
+    y_pred_mlp3 = mlp3.predict(X_test_std)
+    y_pred_mlp4 = mlp4.predict(X_test_std)
     dokladnosc1 += accuracy_score(y_test, y_pred_mlp1)
     dokladnosc2 += accuracy_score(y_test, y_pred_mlp2)
     dokladnosc3 += accuracy_score(y_test, y_pred_mlp3)
@@ -155,6 +155,38 @@ print('MLP (relu, adam): %.2f' % (dokladnosc_srednia1*100), "%")
 print('MLP (tanh, adam): %.2f' % (dokladnosc_srednia2*100), "%")
 print('MLP (relu, sgd): %.2f' % (dokladnosc_srednia3*100), "%")
 print('MLP (tanh, sgd): %.2f' % (dokladnosc_srednia4*100), "%")
+
+
+dokladnosc1 = 0
+dokladnosc2 = 0
+dokladnosc3 = 0
+dokladnosc4 = 0
+for i in range(0,100):
+    mlp1 = MLPClassifier(hidden_layer_sizes=(10,), activation="relu", solver='adam', max_iter=500)
+    mlp2 = MLPClassifier(hidden_layer_sizes=(10, 10,), activation="relu", solver='adam', max_iter=500)
+    mlp3 = MLPClassifier(hidden_layer_sizes=(10, 10, 10,), activation="relu", solver='adam', max_iter=500)
+    mlp4 = MLPClassifier(hidden_layer_sizes=(10, 10, 10, 10,), activation="relu", solver='adam', max_iter=500)
+    mlp1.fit(X_train_std, y_train)  
+    mlp2.fit(X_train_std, y_train)  
+    mlp3.fit(X_train_std, y_train)  
+    mlp4.fit(X_train_std, y_train)  
+    y_pred_mlp1 = mlp1.predict(X_test_std)
+    y_pred_mlp2 = mlp2.predict(X_test_std)
+    y_pred_mlp3 = mlp3.predict(X_test_std)
+    y_pred_mlp4 = mlp4.predict(X_test_std)
+    dokladnosc1 += accuracy_score(y_test, y_pred_mlp1)
+    dokladnosc2 += accuracy_score(y_test, y_pred_mlp2)
+    dokladnosc3 += accuracy_score(y_test, y_pred_mlp3)
+    dokladnosc4 += accuracy_score(y_test, y_pred_mlp4)
+
+dokladnosc_srednia1 = dokladnosc1/100
+dokladnosc_srednia2 = dokladnosc2/100
+dokladnosc_srednia3 = dokladnosc3/100
+dokladnosc_srednia4 = dokladnosc4/100
+print('MLP [relu, adam] (10,): %.2f' % (dokladnosc_srednia1*100), "%")
+print('MLP [relu, adam] (10, 10,): %.2f' % (dokladnosc_srednia2*100), "%")
+print('MLP [relu, adam] (10, 10, 10,): %.2f' % (dokladnosc_srednia3*100), "%")
+print('MLP [relu, adam] (10, 10, 10, 10,): %.2f' % (dokladnosc_srednia4*100), "%")
 
 
 # - Szukanie najlepszych parametrow - #
