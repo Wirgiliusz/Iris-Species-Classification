@@ -23,8 +23,10 @@ cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
 cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
 
 # Sieci
-
 clf = KNeighborsClassifier(n_neighbors=15)
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10), activation="relu", solver='adam', max_iter=1000)
+mlp2 = MLPClassifier(hidden_layer_sizes=(10, 10, 10, 10), activation="relu", solver='adam', max_iter=1000)
+mlp3 = MLPClassifier(hidden_layer_sizes=(10, 10, 10, 10), activation="relu", solver='adam', max_iter=1000)
 
 clf.fit(X,y)
 mlp.fit(X,y)
