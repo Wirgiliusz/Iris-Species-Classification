@@ -15,10 +15,11 @@ iris = datasets.load_iris()
 X = iris['data']
 y = iris['target']
 
-print(iris.keys())
-print(iris["target_names"])
-print(iris["feature_names"])
+#print(iris.keys())
+#print(iris["target_names"])
+#print(iris["feature_names"])
 
+# - - - - - WYKRESY - - - - - #
 s_l = []
 p_l = []
 s_w = []
@@ -83,27 +84,32 @@ plt.legend()
 #plt.show()
 
 
+# Podzial danych na grupe uczenia i testowania
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
+# Normalizacja i standaryzacja danych
 sc = StandardScaler()
 sc.fit(X_train)
-
 X_train_std = sc.transform(X_train)
 X_test_std = sc.transform(X_test)
 
+# - Perceptron - #
+ppn = Perceptron(max_iter=40, eta0=0.1, random_state=0)
+ppn.fit(X_train_std, y_train)
+y_pred_ppn = ppn.predict(X_test_std)
 
-#ppn = Perceptron(max_iter=40, eta0=0.1, random_state=0)
-#ppn.fit(X_train_std, y_train)
+
+# - Wielowarstwowy perceptron - #
 mlp = MLPClassifier(hidden_layer_sizes=(10, 10), activation="relu", solver='adam', max_iter=1000)
 mlp.fit(X_train, y_train)  
+y_pred_mlp = mlp.predict(X_test)
 
-
-#y_pred = ppn.predict(X_test_std)
-y_pred = mlp.predict(X_test)
-
-
-print(y_pred)
+print("Rzeczywiste wyniki:")
 print(y_test)
-print(len(y_test))
+print("Przewidywania peceptrona:")
+print(y_pred_ppn)
+print("Przewidywania wielowarstwowego perceptrona:")
+print(y_pred_mlp)
 
-print('Accuracy: %.2f' % (accuracy_score(y_test, y_pred)*100), "%")
+print('Dokladnosc perceptrona: %.2f' % (accuracy_score(y_test, y_pred_ppn)*100), "%")
+print('Dokladnosc wielowarstwowego perceptrona: %.2f' % (accuracy_score(y_test, y_pred_mlp)*100), "%")
