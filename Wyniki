@@ -1,0 +1,6 @@
+100 prob
+no std
+    MLP (relu, adam): 95.17 %
+    MLP (tanh, adam): 96.67 %
+    MLP (relu, sgd): 93.20 %
+    MLP (tanh, sgd): 93.20 %
