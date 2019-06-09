@@ -22,6 +22,7 @@ y = iris['target']
 #print(iris["feature_names"])
 
 # - - - - - WYKRESY - - - - - #
+'''
 s_l = []
 p_l = []
 s_w = []
@@ -83,6 +84,7 @@ sub4.set_ylabel('Petal length [cm]')
 sub4.legend()
 
 #plt.show()
+'''
 # - - - - - - - - - - - - - - - #
 
 # Podzial danych na grupe uczenia i testowania
@@ -103,13 +105,20 @@ y_pred_ppn = ppn.predict(X_test_std)
 # - Wielowarstwowy perceptron - #
 mlp = MLPClassifier(hidden_layer_sizes=(10, 10), activation="relu", solver='adam', max_iter=1000)
 mlp.fit(X_train_std, y_train)  
-y_pred_mlp = mlp.predict(X_test)
+y_pred_mlp = mlp.predict(X_test_std)
 
 # - K najblizszych sasiadow - #
 knn = KNeighborsClassifier(n_neighbors=3)
 knn.fit(X_train_std, y_train)
-y_pred_knn = knn.predict(X_test)
+y_pred_knn = knn.predict(X_test_std)
 
+plik = open('Wyniki.txt', 'w')
+plik.write("Porownanie rzeczywistych wynikow z przewidywaniami:\n")
+plik.write(str(y_test) + ' - rzeczywiste\n')
+plik.write(str(y_pred_ppn) + ' - perceptron\n')
+plik.write(str(y_pred_mlp) + ' - wielowarstwowy perceptron\n')
+plik.write(str(y_pred_knn) + ' - K najblizszych sasiadow\n\n')
+'''
 print("Rzeczywiste wyniki:")
 print(y_test)
 print("Przewidywania peceptrona:")
@@ -118,11 +127,15 @@ print("Przewidywania wielowarstwowego perceptrona:")
 print(y_pred_mlp)
 print("Przewidywania K najblizszych sasiadow:")
 print(y_pred_knn)
-
+'''
+plik.write('Dokladnosc perceptrona: ' + str(round(accuracy_score(y_test, y_pred_ppn)*100,2)) + "%\n")
+plik.write('Dokladnosc wielowarstwowego perceptrona: ' + str(round(accuracy_score(y_test, y_pred_mlp)*100,2)) + "%\n")
+plik.write('Dokladnosc K najblizszych sasiadow: ' + str(round(accuracy_score(y_test, y_pred_knn)*100,2)) + "%\n\n")
+'''
 print('Dokladnosc perceptrona: %.2f' % (accuracy_score(y_test, y_pred_ppn)*100), "%")
 print('Dokladnosc wielowarstwowego perceptrona: %.2f' % (accuracy_score(y_test, y_pred_mlp)*100), "%")
 print('Dokladnosc K najblizszych sasiadow: %.2f' % (accuracy_score(y_test, y_pred_knn)*100), "%")
-    
+'''  
 # - Wielowarstwowy perceptron - #
 # -      test wielokrotny     - #
 dokladnosc1 = 0
@@ -151,11 +164,16 @@ dokladnosc_srednia1 = dokladnosc1/100
 dokladnosc_srednia2 = dokladnosc2/100
 dokladnosc_srednia3 = dokladnosc3/100
 dokladnosc_srednia4 = dokladnosc4/100
+plik.write('MLP (relu, adam): ' + str(round(dokladnosc_srednia1*100,2)) + "%\n")
+plik.write('MLP (tanh, adam): ' + str(round(dokladnosc_srednia2*100,2)) + "%\n")
+plik.write('MLP (relu, sgd): ' + str(round(dokladnosc_srednia3*100,2)) + "%\n")
+plik.write('MLP (tanh, sgd): ' + str(round(dokladnosc_srednia4*100,2)) + "%\n\n")
+'''
 print('MLP (relu, adam): %.2f' % (dokladnosc_srednia1*100), "%")
 print('MLP (tanh, adam): %.2f' % (dokladnosc_srednia2*100), "%")
 print('MLP (relu, sgd): %.2f' % (dokladnosc_srednia3*100), "%")
 print('MLP (tanh, sgd): %.2f' % (dokladnosc_srednia4*100), "%")
-
+'''
 
 dokladnosc1 = 0
 dokladnosc2 = 0
@@ -183,11 +201,16 @@ dokladnosc_srednia1 = dokladnosc1/100
 dokladnosc_srednia2 = dokladnosc2/100
 dokladnosc_srednia3 = dokladnosc3/100
 dokladnosc_srednia4 = dokladnosc4/100
+plik.write('MLP [relu, adam] (10,): ' + str(round(dokladnosc_srednia1*100,2)) + "%\n")
+plik.write('MLP [relu, adam] (10, 10,): ' + str(round(dokladnosc_srednia2*100,2)) + "%\n")
+plik.write('MLP [relu, adam] (10, 10, 10,): ' + str(round(dokladnosc_srednia3*100,2)) + "%\n")
+plik.write('MLP [relu, adam] (10, 10, 10, 10,): ' + str(round(dokladnosc_srednia4*100,2)) + "%\n")
+'''
 print('MLP [relu, adam] (10,): %.2f' % (dokladnosc_srednia1*100), "%")
 print('MLP [relu, adam] (10, 10,): %.2f' % (dokladnosc_srednia2*100), "%")
 print('MLP [relu, adam] (10, 10, 10,): %.2f' % (dokladnosc_srednia3*100), "%")
 print('MLP [relu, adam] (10, 10, 10, 10,): %.2f' % (dokladnosc_srednia4*100), "%")
-
+'''
 
 # - Szukanie najlepszych parametrow - #
 '''

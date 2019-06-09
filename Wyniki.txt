@@ -1,0 +1,19 @@
+Porownanie rzeczywistych wynikow z przewidywaniami:
+[0 0 2 0 2 1 1 1 0 1 0 2 0 1 2 1 1 2 2 1 1 1 0 0 1 0 0 1 0 2] - rzeczywiste
+[0 0 2 1 2 1 2 1 0 1 1 2 0 1 2 1 1 2 2 1 0 1 0 1 1 0 0 1 1 2] - perceptron
+[0 0 2 0 2 1 2 1 0 1 0 2 0 1 2 1 1 2 2 1 1 1 0 0 1 0 0 1 0 2] - wielowarstwowy perceptron
+[0 0 2 0 2 1 1 1 0 1 0 2 0 1 2 1 1 2 2 1 1 1 0 0 1 0 0 1 0 2] - K najblizszych sasiadow
+
+Dokladnosc perceptrona: 80.0%
+Dokladnosc wielowarstwowego perceptrona: 96.67%
+Dokladnosc K najblizszych sasiadow: 100.0%
+
+MLP (relu, adam): 96.57%
+MLP (tanh, adam): 96.67%
+MLP (relu, sgd): 89.6%
+MLP (tanh, sgd): 94.9%
+
+MLP [relu, adam] (10,): 95.8%
+MLP [relu, adam] (10, 10,): 96.6%
+MLP [relu, adam] (10, 10, 10,): 96.77%
+MLP [relu, adam] (10, 10, 10, 10,): 96.73%
