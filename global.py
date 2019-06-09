@@ -10,6 +10,7 @@ from matplotlib.colors import ListedColormap
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 # - - - - - WYKRESY GRANIC ROZNYCH ESTYMATOROW DLA ROZNYCH ARGUMENTOW - - - - - #
 iris = datasets.load_iris()
 X = iris['data']
@@ -43,19 +44,23 @@ Z1 = Z1.reshape(xx.shape)
 Z10 = Z10.reshape(xx.shape)
 Z30 = Z30.reshape(xx.shape)
 
+# tworzenie plotow
 fig1 = plt.figure(1)
 sub1 = fig1.add_subplot(231)
 sub10 = fig1.add_subplot(232)
 sub30 = fig1.add_subplot(233)
 
+# rysowanie granic
 sub1.pcolormesh(xx, yy, Z1, cmap=cmap_light)
 sub10.pcolormesh(xx, yy, Z10, cmap=cmap_light)
 sub30.pcolormesh(xx, yy, Z30, cmap=cmap_light)
 
+# rysowanie punktow
 sub1.scatter(Xs[:,0], Xs[:,1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
 sub10.scatter(Xs[:,0], Xs[:,1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
 sub30.scatter(Xs[:,0], Xs[:,1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
 
+# nazywanie wykresow
 fig1.suptitle('Sepal Width(Length) and Petal Width(Length)\n for KNeighbors Classifier')
 sub1.set_xlabel('Length [cm]')
 sub1.set_ylabel('Width [cm]')
@@ -89,18 +94,22 @@ Z1 = Z1.reshape(xx.shape)
 Z10 = Z10.reshape(xx.shape)
 Z30 = Z30.reshape(xx.shape)
 
+# tworzenie plotow
 sub1 = fig1.add_subplot(234)
 sub10 = fig1.add_subplot(235)
 sub30 = fig1.add_subplot(236)
 
+# rysowanie granic
 sub1.pcolormesh(xx, yy, Z1, cmap=cmap_light)
 sub10.pcolormesh(xx, yy, Z10, cmap=cmap_light)
 sub30.pcolormesh(xx, yy, Z30, cmap=cmap_light)
 
+#rysowanie punktow
 sub1.scatter(Xp[:,0], Xp[:,1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
 sub10.scatter(Xp[:,0], Xp[:,1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
 sub30.scatter(Xp[:,0], Xp[:,1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
 
+#nazywanie wykresow
 sub1.set_xlabel('Length [cm]')
 sub1.set_ylabel('Width [cm]')
 sub1.set_title('K=1')
