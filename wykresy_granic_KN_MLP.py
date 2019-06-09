@@ -124,9 +124,9 @@ sub30.set_title('K=30')
 # - - - - - MLP - - - - - #
 # dla Sepal #
 Xs = X[:,0:2] # sepal length/width
-mlp1 = MLPClassifier(hidden_layer_sizes=(10,), activation="relu", solver='adam', max_iter=1000)
-mlp3 = MLPClassifier(hidden_layer_sizes=(10,10,10,), activation="relu", solver='adam', max_iter=1000)
-mlp5 = MLPClassifier(hidden_layer_sizes=(10,10,10,10,10,), activation="relu", solver='adam', max_iter=1000)
+mlp1 = MLPClassifier(hidden_layer_sizes=(15,), activation="relu", solver='adam', max_iter=500)
+mlp3 = MLPClassifier(hidden_layer_sizes=(15,15,15,), activation="relu", solver='adam', max_iter=500)
+mlp5 = MLPClassifier(hidden_layer_sizes=(15,15,15,15,15,), activation="relu", solver='adam', max_iter=500)
 mlp1.fit(Xs, y)
 mlp3.fit(Xs, y)
 mlp5.fit(Xs, y)
@@ -137,12 +137,12 @@ y_min, y_max = Xs[:,1].min()-.1, Xs[:,1].max()+.1
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 # Przewidywanie
 Z1 = mlp1.predict(np.c_[xx.ravel(), yy.ravel()])    
-Z10 = mlp3.predict(np.c_[xx.ravel(), yy.ravel()])
-Z30 = mlp5.predict(np.c_[xx.ravel(), yy.ravel()])
+Z3 = mlp3.predict(np.c_[xx.ravel(), yy.ravel()])
+Z5 = mlp5.predict(np.c_[xx.ravel(), yy.ravel()])
 
 Z1 = Z1.reshape(xx.shape)
-Z10 = Z10.reshape(xx.shape)
-Z30 = Z30.reshape(xx.shape)
+Z3 = Z3.reshape(xx.shape)
+Z5 = Z5.reshape(xx.shape)
 
 # tworzenie plotow
 fig2 = plt.figure(2)
@@ -152,8 +152,8 @@ sub5 = fig2.add_subplot(233)
 
 # rysowanie granic
 sub1.pcolormesh(xx, yy, Z1, cmap=cmap_light)
-sub3.pcolormesh(xx, yy, Z10, cmap=cmap_light)
-sub5.pcolormesh(xx, yy, Z30, cmap=cmap_light)
+sub3.pcolormesh(xx, yy, Z3, cmap=cmap_light)
+sub5.pcolormesh(xx, yy, Z5, cmap=cmap_light)
 
 # rysowanie punktow
 sub1.scatter(Xs[:,0], Xs[:,1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
@@ -174,9 +174,9 @@ sub5.set_title('N Layers = 5')
 
 # dla Petal #
 Xp = X[:,2:4] # petal length/width
-mlp1 = MLPClassifier(hidden_layer_sizes=(10,), activation="relu", solver='adam', max_iter=1000)
-mlp3 = MLPClassifier(hidden_layer_sizes=(10,10,10,), activation="relu", solver='adam', max_iter=1000)
-mlp5 = MLPClassifier(hidden_layer_sizes=(10,10,10,10,10,), activation="relu", solver='adam', max_iter=1000)
+mlp1 = MLPClassifier(hidden_layer_sizes=(15,), activation="relu", solver='adam', max_iter=500)
+mlp3 = MLPClassifier(hidden_layer_sizes=(15,15,15,), activation="relu", solver='adam', max_iter=500)
+mlp5 = MLPClassifier(hidden_layer_sizes=(15,15,15,15,15,), activation="relu", solver='adam', max_iter=500)
 mlp1.fit(Xp, y)
 mlp3.fit(Xp, y)
 mlp5.fit(Xp, y)
@@ -187,12 +187,12 @@ y_min, y_max = Xp[:,1].min()-.3, Xp[:,1].max()+.3
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 # Przewidywanie
 Z1 = mlp1.predict(np.c_[xx.ravel(), yy.ravel()])    
-Z10 = mlp3.predict(np.c_[xx.ravel(), yy.ravel()])
-Z30 = mlp5.predict(np.c_[xx.ravel(), yy.ravel()])
+Z3 = mlp3.predict(np.c_[xx.ravel(), yy.ravel()])
+Z5 = mlp5.predict(np.c_[xx.ravel(), yy.ravel()])
 
 Z1 = Z1.reshape(xx.shape)
-Z10 = Z10.reshape(xx.shape)
-Z30 = Z30.reshape(xx.shape)
+Z3 = Z3.reshape(xx.shape)
+Z5 = Z5.reshape(xx.shape)
 
 # tworzenie plotow
 sub1 = fig2.add_subplot(234)
@@ -201,8 +201,8 @@ sub5 = fig2.add_subplot(236)
 
 # rysowanie granic
 sub1.pcolormesh(xx, yy, Z1, cmap=cmap_light)
-sub3.pcolormesh(xx, yy, Z10, cmap=cmap_light)
-sub5.pcolormesh(xx, yy, Z30, cmap=cmap_light)
+sub3.pcolormesh(xx, yy, Z3, cmap=cmap_light)
+sub5.pcolormesh(xx, yy, Z5, cmap=cmap_light)
 
 # rysowanie punktow
 sub1.scatter(Xp[:,0], Xp[:,1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
