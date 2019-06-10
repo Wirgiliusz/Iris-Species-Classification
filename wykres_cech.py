@@ -46,7 +46,7 @@ for i in range(0, 150):
     sub3.plot(s_l[i], s_w[i], color=kolor[i][0], marker=kolor[i][1], label=n)
     sub4.plot(p_w[i], p_l[i], color=kolor[i][0], marker=kolor[i][1], label=n)
 
-
+fig1.suptitle('Dependences of selected features')
 sub1.set_title("Petal(Sepal) length")
 sub1.set_xlabel('Sepal length [cm]')
 sub1.set_ylabel('Petal length [cm]')
