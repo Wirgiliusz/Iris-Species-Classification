@@ -43,6 +43,7 @@ knn = KNeighborsClassifier(n_neighbors=3)
 knn.fit(X_train_std, y_train)
 y_pred_knn = knn.predict(X_test_std)
 
+# zapisanie wynikow do pliku
 plik = open('Wyniki.txt', 'w')
 plik.write("Porownanie rzeczywistych wynikow z przewidywaniami:\n")
 plik.write(str(y_test) + ' - rzeczywiste\n')
@@ -57,6 +58,9 @@ plik.write('Dokladnosc K najblizszych sasiadow: ' + str(round(accuracy_score(y_t
 
 # - Wielowarstwowy perceptron - #
 # -      test wielokrotny     - #
+
+# Testowanie roznych funkcji aktywacji
+# oraz algorytmow uczenia
 dokladnosc1 = 0
 dokladnosc2 = 0
 dokladnosc3 = 0
@@ -88,7 +92,8 @@ plik.write('MLP (tanh, adam): ' + str(round(dokladnosc_srednia2*100,2)) + "%\n")
 plik.write('MLP (relu, sgd): ' + str(round(dokladnosc_srednia3*100,2)) + "%\n")
 plik.write('MLP (tanh, sgd): ' + str(round(dokladnosc_srednia4*100,2)) + "%\n\n")
 
-
+# Testowanie roznych ilosci
+# warstw ukrytych
 dokladnosc1 = 0
 dokladnosc2 = 0
 dokladnosc3 = 0
