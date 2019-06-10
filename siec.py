@@ -12,7 +12,7 @@ from sklearn.model_selection import GridSearchCV
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+# - - - - - TEST KLASYFIKATOROW DLA ROZNYCH PARAMETROW - - - - - #
 # Wczytanie danych
 iris = datasets.load_iris()
 X = iris['data']
