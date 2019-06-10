@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 
 
 # - - - - - WYKRESY GRANIC ROZNYCH ESTYMATOROW DLA ROZNYCH ARGUMENTOW - - - - - #
+# Wczytanie danych
 iris = datasets.load_iris()
 X = iris['data']
 y = iris['target']
@@ -22,19 +23,24 @@ cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
 cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
 
 # - - - - - KN - - - - - #
-# dla Sepal #
+# - - - dla Sepal - - - #
 Xs = X[:,0:2] # sepal length/width
-knn1 = KNeighborsClassifier(n_neighbors=1)
+
+# Stworzenie klasyfikatorow
+# n_neighbors - liczba najblizszych sasiadow
+knn1 = KNeighborsClassifier(n_neighbors=1)  
 knn10 = KNeighborsClassifier(n_neighbors=10)
 knn30 = KNeighborsClassifier(n_neighbors=30)
+# Uczenie klasyfikatorow
 knn1.fit(Xs, y)
 knn10.fit(Xs, y)
 knn30.fit(Xs, y)
 
+# Ustawienia dla wykresu
 x_min, x_max = Xs[:,0].min()-.1, Xs[:,0].max()+.1
 y_min, y_max = Xs[:,1].min()-.1, Xs[:,1].max()+.1
-
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+
 # Przewidywanie
 Z1 = knn1.predict(np.c_[xx.ravel(), yy.ravel()])    
 Z10 = knn10.predict(np.c_[xx.ravel(), yy.ravel()])
@@ -44,7 +50,7 @@ Z1 = Z1.reshape(xx.shape)
 Z10 = Z10.reshape(xx.shape)
 Z30 = Z30.reshape(xx.shape)
 
-# tworzenie plotow
+# Tworzenie plotow
 fig1 = plt.figure(1)
 sub1 = fig1.add_subplot(231)
 sub10 = fig1.add_subplot(232)
@@ -72,19 +78,25 @@ sub30.set_xlabel('Length [cm]')
 sub30.set_ylabel('Width [cm]')
 sub30.set_title('K=30')
 
-# dla Petal #
+# - - - dla Petal - - - #
 Xp = X[:,2:4] # petal length/width
-knn1 = KNeighborsClassifier(n_neighbors=1)
+
+# Stworzenie klasyfikatorow
+# n_neighbors - liczba najblizszych sasiadow
+knn1 = KNeighborsClassifier(n_neighbors=1)  
 knn10 = KNeighborsClassifier(n_neighbors=10)
 knn30 = KNeighborsClassifier(n_neighbors=30)
+
+# Uczenie klasyfikatorow
 knn1.fit(Xp, y)
 knn10.fit(Xp, y)
 knn30.fit(Xp, y)
 
+# Ustawienia dla wykresu
 x_min, x_max = Xp[:,0].min()-.3, Xp[:,0].max()+.3
 y_min, y_max = Xp[:,1].min()-.3, Xp[:,1].max()+.3
-
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+
 # Przewidywanie
 Z1 = knn1.predict(np.c_[xx.ravel(), yy.ravel()])    
 Z10 = knn10.predict(np.c_[xx.ravel(), yy.ravel()])
@@ -122,8 +134,13 @@ sub30.set_title('K=30')
 
 
 # - - - - - MLP - - - - - #
-# dla Sepal #
+# - - - dla Sepal - - - #
 Xs = X[:,0:2] # sepal length/width
+
+# Stworzenie klasyfikatorow 
+# hiddel_layer_sizes - liczba i wielkosc warstw ukrytych
+# activation - funkcja aktywacji
+# solver - algorytm uczenia
 mlp1 = MLPClassifier(hidden_layer_sizes=(15,), activation="relu", solver='adam', max_iter=500)
 mlp3 = MLPClassifier(hidden_layer_sizes=(15,15,15,), activation="relu", solver='adam', max_iter=500)
 mlp5 = MLPClassifier(hidden_layer_sizes=(15,15,15,15,15,), activation="relu", solver='adam', max_iter=500)
@@ -131,10 +148,11 @@ mlp1.fit(Xs, y)
 mlp3.fit(Xs, y)
 mlp5.fit(Xs, y)
 
+# Ustawienia wykresu
 x_min, x_max = Xs[:,0].min()-.1, Xs[:,0].max()+.1
 y_min, y_max = Xs[:,1].min()-.1, Xs[:,1].max()+.1
-
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+
 # Przewidywanie
 Z1 = mlp1.predict(np.c_[xx.ravel(), yy.ravel()])    
 Z3 = mlp3.predict(np.c_[xx.ravel(), yy.ravel()])
@@ -172,8 +190,13 @@ sub5.set_xlabel('Length [cm]')
 sub5.set_ylabel('Width [cm]')
 sub5.set_title('N Layers = 5')
 
-# dla Petal #
+# - - - dla Petal - - - #
 Xp = X[:,2:4] # petal length/width
+
+# Stworzenie klasyfikatorow 
+# hiddel_layer_sizes - liczba i wielkosc warstw ukrytych
+# activation - funkcja aktywacji
+# solver - algorytm uczenia
 mlp1 = MLPClassifier(hidden_layer_sizes=(15,), activation="relu", solver='adam', max_iter=500)
 mlp3 = MLPClassifier(hidden_layer_sizes=(15,15,15,), activation="relu", solver='adam', max_iter=500)
 mlp5 = MLPClassifier(hidden_layer_sizes=(15,15,15,15,15,), activation="relu", solver='adam', max_iter=500)
@@ -181,11 +204,12 @@ mlp1.fit(Xp, y)
 mlp3.fit(Xp, y)
 mlp5.fit(Xp, y)
 
+# Ustawienai wykresu
 x_min, x_max = Xp[:,0].min()-.3, Xp[:,0].max()+.3
 y_min, y_max = Xp[:,1].min()-.3, Xp[:,1].max()+.3
-
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 # Przewidywanie
+
 Z1 = mlp1.predict(np.c_[xx.ravel(), yy.ravel()])    
 Z3 = mlp3.predict(np.c_[xx.ravel(), yy.ravel()])
 Z5 = mlp5.predict(np.c_[xx.ravel(), yy.ravel()])
@@ -221,3 +245,4 @@ sub5.set_ylabel('Width [cm]')
 sub5.set_title('N Layers = 5')
 
 plt.show()
+# - - - - - - - - - - - - - - #
