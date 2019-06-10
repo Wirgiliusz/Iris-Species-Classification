@@ -1,23 +1,25 @@
 from sklearn import datasets
 import matplotlib.pyplot as plt
 
-
+# Wczytanie danych
 iris = datasets.load_iris()
-X = iris['data']
-y = iris['target']
+X = iris['data']    # wejscia
+y = iris['target']  # wyjscia
 
 # - - - - - WYKRESY - - - - - #
-s_l = []
-p_l = []
-s_w = []
-p_w = []
-kolor = []
-nazwa = ['Setosa', 'Versicolor', 'Virginica', '']
+s_l = []    # sepal length
+p_l = []    # petal length
+s_w = []    # sepal width
+p_w = []    # petal width
+kolor = []  # kolory
+nazwa = ['Setosa', 'Versicolor', 'Virginica', ''] # gatunki
+# Stworzenie wektorow danych
 for i in range(0, 150):
     s_l.append(X[i][0])
     p_l.append(X[i][2])
     s_w.append(X[i][1])
     p_w.append(X[i][3])
+    # przypisanie odpowiednich kolorow
     if(y[i] == 0):
         kolor.append('ro')
     elif(y[i] == 1):
@@ -25,12 +27,14 @@ for i in range(0, 150):
     elif(y[i] == 2):
         kolor.append('bo')
 
-
-fig1 = plt.figure(1)
-sub1 = fig1.add_subplot(221)
+# Rysowanie wykresow
+fig1 = plt.figure(1)    # stworzenie okna
+# tworzenie subplotow
+sub1 = fig1.add_subplot(221)    
 sub2 = fig1.add_subplot(222)
 sub3 = fig1.add_subplot(223)
 sub4 = fig1.add_subplot(224)
+# rysowanie
 for i in range(0, 150):
     if(i==0):
         n = nazwa[0]
@@ -46,6 +50,7 @@ for i in range(0, 150):
     sub3.plot(s_l[i], s_w[i], color=kolor[i][0], marker=kolor[i][1], label=n)
     sub4.plot(p_w[i], p_l[i], color=kolor[i][0], marker=kolor[i][1], label=n)
 
+# opis wykresow
 fig1.suptitle('Dependences of selected features')
 sub1.set_title("Petal(Sepal) length")
 sub1.set_xlabel('Sepal length [cm]')
