@@ -1,14 +1,18 @@
 Comparison of real results with network predictions:
-[2 2 0 2 1 2 0 1 2 2 1 1 0 2 1 1 1 1 2 2 2 1 0 2 0 0 0 2 0 1] - real results
-[2 2 0 1 1 1 0 1 2 2 1 1 0 2 1 1 2 1 2 2 2 1 0 2 1 0 0 2 0 1] - perceptron
-[2 2 0 1 1 2 0 1 2 2 1 1 0 2 1 1 2 1 2 2 2 1 0 2 1 0 0 2 0 1] - multi-layer perceptron
-[2 2 0 1 1 2 0 1 2 2 1 1 0 2 1 1 2 1 2 2 2 1 0 2 1 0 0 2 0 1] - K closest neighbours
+[0 0 0 2 0 2 2 1 0 1 2 1 1 1 2 2 1 2 1 1 0 0 0 2 1 2 0 2 1 1] - real results
+[0 0 0 2 0 2 2 1 0 1 2 0 2 1 2 2 1 2 2 1 0 0 0 2 1 2 0 2 1 1] - perceptron
+[0 0 0 2 0 2 2 1 0 1 2 1 1 1 2 2 1 2 1 1 0 0 0 2 1 2 0 2 1 1] - multi-layer perceptron
+[0 0 0 2 0 2 2 1 0 1 2 1 1 1 2 2 1 2 1 1 0 0 0 2 1 2 0 2 1 1] - K closest neighbours
 
-Accuracy of perceptron: 86.67%
-Accuracy of multi-layer perceptron: 90.0%
-Accuracy of K closest neighbours: 90.0%
+Accuracy of perceptron: 90.0%
+Accuracy of multi-layer perceptron: 100.0%
+Accuracy of K closest neighbours: 100.0%
 
-MLP (relu, adam): 92.27%
-MLP (tanh, adam): 92.6%
-MLP (relu, sgd): 90.67%
-MLP (tanh, sgd): 91.97%
+MLP [relu, adam] (10, 10): 99.13%
+MLP [tanh, adam] (10, 10): 99.3%
+MLP [relu, sgd] (10, 10): 90.93%
+MLP [tanh, sgd] (10, 10): 92.97%
+MLP [relu, adam] (10,): 96.53%
+MLP [relu, adam] (10, 10): 99.5%
+MLP [relu, adam] (10, 10, 10): 99.5%
+MLP [relu, adam] (10, 10, 10, 10): 99.5%
