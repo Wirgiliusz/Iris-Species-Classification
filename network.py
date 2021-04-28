@@ -9,6 +9,10 @@ from sklearn.neighbors import KNeighborsClassifier
 
 from sklearn.model_selection import GridSearchCV
 
+from warnings import simplefilter
+from sklearn.exceptions import ConvergenceWarning
+simplefilter("ignore", category=ConvergenceWarning)
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -52,7 +56,7 @@ file.write(str(y_pred_ppn) + ' - perceptron\n')
 file.write(str(y_pred_mlp) + ' - multi-layer perceptron\n')
 file.write(str(y_pred_knn) + ' - K closest neighbours\n\n')
 
-file.write('Accuracy of perceptrona: ' + str(round(accuracy_score(y_test, y_pred_ppn)*100,2)) + "%\n")
+file.write('Accuracy of perceptron: ' + str(round(accuracy_score(y_test, y_pred_ppn)*100,2)) + "%\n")
 file.write('Accuracy of multi-layer perceptron: ' + str(round(accuracy_score(y_test, y_pred_mlp)*100,2)) + "%\n")
 file.write('Accuracy of K closest neighbours: ' + str(round(accuracy_score(y_test, y_pred_knn)*100,2)) + "%\n\n")
 
@@ -63,68 +67,33 @@ NUMBER_OF_TESTS = 100
 NUMBER_OF_ITERATIONS = 500
 
 # Tests of various activation functions and learning algorithms
-accuracy1 = 0
-accuracy2 = 0
-accuracy3 = 0
-accuracy4 = 0
-for i in range(0, NUMBER_OF_TESTS):
-    mlp1 = MLPClassifier(hidden_layer_sizes=(10, 10), activation="relu", solver='adam', max_iter=NUMBER_OF_ITERATIONS)
-    mlp2 = MLPClassifier(hidden_layer_sizes=(10, 10), activation="tanh", solver='adam', max_iter=NUMBER_OF_ITERATIONS)
-    mlp3 = MLPClassifier(hidden_layer_sizes=(10, 10), activation="relu", solver='sgd', max_iter=NUMBER_OF_ITERATIONS)
-    mlp4 = MLPClassifier(hidden_layer_sizes=(10, 10), activation="tanh", solver='sgd', max_iter=NUMBER_OF_ITERATIONS)
-    mlp1.fit(X_train_std, y_train)  
-    mlp2.fit(X_train_std, y_train)  
-    mlp3.fit(X_train_std, y_train)  
-    mlp4.fit(X_train_std, y_train)  
-    y_pred_mlp1 = mlp1.predict(X_test_std)
-    y_pred_mlp2 = mlp2.predict(X_test_std)
-    y_pred_mlp3 = mlp3.predict(X_test_std)
-    y_pred_mlp4 = mlp4.predict(X_test_std)
-    accuracy1 += accuracy_score(y_test, y_pred_mlp1)
-    accuracy2 += accuracy_score(y_test, y_pred_mlp2)
-    accuracy3 += accuracy_score(y_test, y_pred_mlp3)
-    accuracy4 += accuracy_score(y_test, y_pred_mlp4)
+activation_solver_pairs = (("relu", "adam"), ("tanh", "adam"), ("relu", "sgd"), ("tanh", "sgd"))
 
-accuracy_average1 = accuracy1 / NUMBER_OF_TESTS
-accuracy_average2 = accuracy2 / NUMBER_OF_TESTS
-accuracy_average3 = accuracy3 / NUMBER_OF_TESTS
-accuracy_average4 = accuracy4 / NUMBER_OF_TESTS
-file.write('MLP (relu, adam): ' + str(round(accuracy_average1*100,2)) + "%\n")
-file.write('MLP (tanh, adam): ' + str(round(accuracy_average2*100,2)) + "%\n")
-file.write('MLP (relu, sgd): ' + str(round(accuracy_average3*100,2)) + "%\n")
-file.write('MLP (tanh, sgd): ' + str(round(accuracy_average4*100,2)) + "%\n\n")
+for solver_name, activation_name in activation_solver_pairs:
+    accuracy = 0
+    for _ in range(0, NUMBER_OF_TESTS):
+        mlp_classifier = MLPClassifier(hidden_layer_sizes=(10, 10), activation=solver_name, solver=activation_name, max_iter=NUMBER_OF_ITERATIONS)
+        mlp_classifier.fit(X_train_std, y_train)  
+        mlp_prediction = mlp_classifier.predict(X_test_std)
+        accuracy += accuracy_score(y_test, mlp_prediction)
+    
+    average_accuracy = accuracy / NUMBER_OF_TESTS
+    file.write("MLP [" + solver_name + ", " + activation_name + "] (10, 10): " + str(round(average_accuracy * 100, 2)) + "%\n")
+
 
 # Tests of various numbers of hidden layers
-accuracy1 = 0
-accuracy2 = 0
-accuracy3 = 0
-accuracy4 = 0
-for i in range(0, NUMBER_OF_TESTS):
-    mlp1 = MLPClassifier(hidden_layer_sizes=(10,), activation="relu", solver='adam', max_iter=NUMBER_OF_ITERATIONS)
-    mlp2 = MLPClassifier(hidden_layer_sizes=(10, 10,), activation="relu", solver='adam', max_iter=NUMBER_OF_ITERATIONS)
-    mlp3 = MLPClassifier(hidden_layer_sizes=(10, 10, 10,), activation="relu", solver='adam', max_iter=NUMBER_OF_ITERATIONS)
-    mlp4 = MLPClassifier(hidden_layer_sizes=(10, 10, 10, 10,), activation="relu", solver='adam', max_iter=NUMBER_OF_ITERATIONS)
-    mlp1.fit(X_train_std, y_train)  
-    mlp2.fit(X_train_std, y_train)  
-    mlp3.fit(X_train_std, y_train)  
-    mlp4.fit(X_train_std, y_train)  
-    y_pred_mlp1 = mlp1.predict(X_test_std)
-    y_pred_mlp2 = mlp2.predict(X_test_std)
-    y_pred_mlp3 = mlp3.predict(X_test_std)
-    y_pred_mlp4 = mlp4.predict(X_test_std)
-    accuracy1 += accuracy_score(y_test, y_pred_mlp1)
-    accuracy2 += accuracy_score(y_test, y_pred_mlp2)
-    accuracy3 += accuracy_score(y_test, y_pred_mlp3)
-    accuracy4 += accuracy_score(y_test, y_pred_mlp4)
+hidden_layers_sizes = ((10,), (10, 10,), (10, 10, 10,), (10, 10, 10, 10,))
 
-accuracy_average1 = accuracy1 / NUMBER_OF_TESTS
-accuracy_average2 = accuracy2 / NUMBER_OF_TESTS
-accuracy_average3 = accuracy3 / NUMBER_OF_TESTS
-accuracy_average4 = accuracy4 / NUMBER_OF_TESTS
-file.write('MLP [relu, adam] (10,): ' + str(round(accuracy_average1*100,2)) + "%\n")
-file.write('MLP [relu, adam] (10, 10,): ' + str(round(accuracy_average2*100,2)) + "%\n")
-file.write('MLP [relu, adam] (10, 10, 10,): ' + str(round(accuracy_average3*100,2)) + "%\n")
-file.write('MLP [relu, adam] (10, 10, 10, 10,): ' + str(round(accuracy_average4*100,2)) + "%\n")
+for layer_size in hidden_layers_sizes:
+    accuracy = 0
+    for _ in range(0, NUMBER_OF_TESTS):
+        mlp_classifier = MLPClassifier(hidden_layer_sizes=layer_size, activation="relu", solver='adam', max_iter=NUMBER_OF_ITERATIONS)
+        mlp_classifier.fit(X_train_std, y_train)  
+        mlp_prediction = mlp_classifier.predict(X_test_std)
+        accuracy += accuracy_score(y_test, mlp_prediction)
+    
+    average_accuracy = accuracy / NUMBER_OF_TESTS
+    file.write("MLP [relu, adam] " + str(layer_size) + ": " + str(round(average_accuracy * 100, 2)) + "%\n")
 
 
 # - Looking for best parameters - #
