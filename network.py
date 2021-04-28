@@ -12,16 +12,16 @@ from sklearn.model_selection import GridSearchCV
 import numpy as np
 import matplotlib.pyplot as plt
 
-# - - - - - TEST KLASYFIKATOROW DLA ROZNYCH PARAMETROW - - - - - #
-# Wczytanie danych
+# - - - - - CLASSIFIERS TESTS FOR DIFFERENT PARAMETERS - - - - - # 
+# Loading iris data
 iris = datasets.load_iris()
 X = iris['data']
 y = iris['target']
 
-# Podzial danych na grupe uczenia i testowania
+# Split of the data in two groups - training and testing
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-# Normalizacja i standaryzacja danych
+# Normalization and standarization of data
 sc = StandardScaler()
 sc.fit(X_train)
 X_train_std = sc.transform(X_train)
@@ -33,38 +33,38 @@ ppn = Perceptron(max_iter=40, eta0=0.1, random_state=0)
 ppn.fit(X_train_std, y_train)
 y_pred_ppn = ppn.predict(X_test_std)
 
-# - Wielowarstwowy perceptron - #
+# - Multi-layer perceptron - #
 mlp = MLPClassifier(hidden_layer_sizes=(10, 10), activation="relu", solver='adam', max_iter=1000)
 mlp.fit(X_train_std, y_train)  
 y_pred_mlp = mlp.predict(X_test_std)
 
-# - K najblizszych sasiadow - #
+# - K closest neighbours - #
 knn = KNeighborsClassifier(n_neighbors=3)
 knn.fit(X_train_std, y_train)
 y_pred_knn = knn.predict(X_test_std)
 
-# zapisanie wynikow do pliku
-plik = open('Wyniki.txt', 'w')
-plik.write("Porownanie rzeczywistych wynikow z przewidywaniami:\n")
-plik.write(str(y_test) + ' - rzeczywiste\n')
-plik.write(str(y_pred_ppn) + ' - perceptron\n')
-plik.write(str(y_pred_mlp) + ' - wielowarstwowy perceptron\n')
-plik.write(str(y_pred_knn) + ' - K najblizszych sasiadow\n\n')
+# Save results to file
+file = open('Results.txt', 'w')
 
-plik.write('Dokladnosc perceptrona: ' + str(round(accuracy_score(y_test, y_pred_ppn)*100,2)) + "%\n")
-plik.write('Dokladnosc wielowarstwowego perceptrona: ' + str(round(accuracy_score(y_test, y_pred_mlp)*100,2)) + "%\n")
-plik.write('Dokladnosc K najblizszych sasiadow: ' + str(round(accuracy_score(y_test, y_pred_knn)*100,2)) + "%\n\n")
+file.write("Comparison of real results with network predictions:\n")
+file.write(str(y_test) + ' - real results\n')
+file.write(str(y_pred_ppn) + ' - perceptron\n')
+file.write(str(y_pred_mlp) + ' - multi-layer perceptron\n')
+file.write(str(y_pred_knn) + ' - K closest neighbours\n\n')
+
+file.write('Accuracy of perceptrona: ' + str(round(accuracy_score(y_test, y_pred_ppn)*100,2)) + "%\n")
+file.write('Accuracy of multi-layer perceptron: ' + str(round(accuracy_score(y_test, y_pred_mlp)*100,2)) + "%\n")
+file.write('Accuracy of K closest neighbours: ' + str(round(accuracy_score(y_test, y_pred_knn)*100,2)) + "%\n\n")
 
 
-# - Wielowarstwowy perceptron - #
-# -      test wielokrotny     - #
+# - Multi-layer perceptron - #
+# Tests for different parameters #
 
-# Testowanie roznych funkcji aktywacji
-# oraz algorytmow uczenia
-dokladnosc1 = 0
-dokladnosc2 = 0
-dokladnosc3 = 0
-dokladnosc4 = 0
+# Tests of various activation functions and learning algorithms
+accuracy1 = 0
+accuracy2 = 0
+accuracy3 = 0
+accuracy4 = 0
 for i in range(0,100):
     mlp1 = MLPClassifier(hidden_layer_sizes=(10, 10), activation="relu", solver='adam', max_iter=500)
     mlp2 = MLPClassifier(hidden_layer_sizes=(10, 10), activation="tanh", solver='adam', max_iter=500)
@@ -78,26 +78,25 @@ for i in range(0,100):
     y_pred_mlp2 = mlp2.predict(X_test_std)
     y_pred_mlp3 = mlp3.predict(X_test_std)
     y_pred_mlp4 = mlp4.predict(X_test_std)
-    dokladnosc1 += accuracy_score(y_test, y_pred_mlp1)
-    dokladnosc2 += accuracy_score(y_test, y_pred_mlp2)
-    dokladnosc3 += accuracy_score(y_test, y_pred_mlp3)
-    dokladnosc4 += accuracy_score(y_test, y_pred_mlp4)
+    accuracy1 += accuracy_score(y_test, y_pred_mlp1)
+    accuracy2 += accuracy_score(y_test, y_pred_mlp2)
+    accuracy3 += accuracy_score(y_test, y_pred_mlp3)
+    accuracy4 += accuracy_score(y_test, y_pred_mlp4)
 
-dokladnosc_srednia1 = dokladnosc1/100
-dokladnosc_srednia2 = dokladnosc2/100
-dokladnosc_srednia3 = dokladnosc3/100
-dokladnosc_srednia4 = dokladnosc4/100
-plik.write('MLP (relu, adam): ' + str(round(dokladnosc_srednia1*100,2)) + "%\n")
-plik.write('MLP (tanh, adam): ' + str(round(dokladnosc_srednia2*100,2)) + "%\n")
-plik.write('MLP (relu, sgd): ' + str(round(dokladnosc_srednia3*100,2)) + "%\n")
-plik.write('MLP (tanh, sgd): ' + str(round(dokladnosc_srednia4*100,2)) + "%\n\n")
+accuracy_average1 = accuracy1/100
+accuracy_average2 = accuracy2/100
+accuracy_average3 = accuracy3/100
+accuracy_average4 = accuracy4/100
+file.write('MLP (relu, adam): ' + str(round(accuracy_average1*100,2)) + "%\n")
+file.write('MLP (tanh, adam): ' + str(round(accuracy_average2*100,2)) + "%\n")
+file.write('MLP (relu, sgd): ' + str(round(accuracy_average3*100,2)) + "%\n")
+file.write('MLP (tanh, sgd): ' + str(round(accuracy_average4*100,2)) + "%\n\n")
 
-# Testowanie roznych ilosci
-# warstw ukrytych
-dokladnosc1 = 0
-dokladnosc2 = 0
-dokladnosc3 = 0
-dokladnosc4 = 0
+# Tests of various numbers of hidden layers
+accuracy1 = 0
+accuracy2 = 0
+accuracy3 = 0
+accuracy4 = 0
 for i in range(0,100):
     mlp1 = MLPClassifier(hidden_layer_sizes=(10,), activation="relu", solver='adam', max_iter=500)
     mlp2 = MLPClassifier(hidden_layer_sizes=(10, 10,), activation="relu", solver='adam', max_iter=500)
@@ -111,22 +110,22 @@ for i in range(0,100):
     y_pred_mlp2 = mlp2.predict(X_test_std)
     y_pred_mlp3 = mlp3.predict(X_test_std)
     y_pred_mlp4 = mlp4.predict(X_test_std)
-    dokladnosc1 += accuracy_score(y_test, y_pred_mlp1)
-    dokladnosc2 += accuracy_score(y_test, y_pred_mlp2)
-    dokladnosc3 += accuracy_score(y_test, y_pred_mlp3)
-    dokladnosc4 += accuracy_score(y_test, y_pred_mlp4)
+    accuracy1 += accuracy_score(y_test, y_pred_mlp1)
+    accuracy2 += accuracy_score(y_test, y_pred_mlp2)
+    accuracy3 += accuracy_score(y_test, y_pred_mlp3)
+    accuracy4 += accuracy_score(y_test, y_pred_mlp4)
 
-dokladnosc_srednia1 = dokladnosc1/100
-dokladnosc_srednia2 = dokladnosc2/100
-dokladnosc_srednia3 = dokladnosc3/100
-dokladnosc_srednia4 = dokladnosc4/100
-plik.write('MLP [relu, adam] (10,): ' + str(round(dokladnosc_srednia1*100,2)) + "%\n")
-plik.write('MLP [relu, adam] (10, 10,): ' + str(round(dokladnosc_srednia2*100,2)) + "%\n")
-plik.write('MLP [relu, adam] (10, 10, 10,): ' + str(round(dokladnosc_srednia3*100,2)) + "%\n")
-plik.write('MLP [relu, adam] (10, 10, 10, 10,): ' + str(round(dokladnosc_srednia4*100,2)) + "%\n")
+accuracy_average1 = accuracy1/100
+accuracy_average2 = accuracy2/100
+accuracy_average3 = accuracy3/100
+accuracy_average4 = accuracy4/100
+file.write('MLP [relu, adam] (10,): ' + str(round(accuracy_average1*100,2)) + "%\n")
+file.write('MLP [relu, adam] (10, 10,): ' + str(round(accuracy_average2*100,2)) + "%\n")
+file.write('MLP [relu, adam] (10, 10, 10,): ' + str(round(accuracy_average3*100,2)) + "%\n")
+file.write('MLP [relu, adam] (10, 10, 10, 10,): ' + str(round(accuracy_average4*100,2)) + "%\n")
 
 
-# - Szukanie najlepszych parametrow - #
+# - Looking for best parameters - #
 '''
 param_grid = [
     {
