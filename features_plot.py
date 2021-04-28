@@ -1,56 +1,57 @@
 from sklearn import datasets
 import matplotlib.pyplot as plt
 
-# Wczytanie danych
+# Load of data
 iris = datasets.load_iris()
 X = iris['data']    # wejscia
 y = iris['target']  # wyjscia
 
-# - - - - - WYKRESY - - - - - #
+# Lists for data
 s_l = []    # sepal length
 p_l = []    # petal length
 s_w = []    # sepal width
 p_w = []    # petal width
-kolor = []  # kolory
-nazwa = ['Setosa', 'Versicolor', 'Virginica', ''] # gatunki
-# Stworzenie wektorow danych
+color = []  # colors
+species_name = ['Setosa', 'Versicolor', 'Virginica', ''] # species
+
+# Fill of data lists
 for i in range(0, 150):
     s_l.append(X[i][0])
     p_l.append(X[i][2])
     s_w.append(X[i][1])
     p_w.append(X[i][3])
-    # przypisanie odpowiednich kolorow
+    # Assignment of colors
     if(y[i] == 0):
-        kolor.append('ro')
+        color.append('ro')
     elif(y[i] == 1):
-        kolor.append('go')
+        color.append('go')
     elif(y[i] == 2):
-        kolor.append('bo')
+        color.append('bo')
 
-# Rysowanie wykresow
-fig1 = plt.figure(1)    # stworzenie okna
-# tworzenie subplotow
+# Plotting 
+fig1 = plt.figure(1)
+
 sub1 = fig1.add_subplot(221)    
 sub2 = fig1.add_subplot(222)
 sub3 = fig1.add_subplot(223)
 sub4 = fig1.add_subplot(224)
-# rysowanie
+
 for i in range(0, 150):
     if(i==0):
-        n = nazwa[0]
+        n = species_name[0]
     elif(i==50):
-        n = nazwa[1]
+        n = species_name[1]
     elif(i==100):
-        n = nazwa[2]
+        n = species_name[2]
     else:
-        n = nazwa[3]
+        n = species_name[3]
 
-    sub1.plot(s_l[i], p_l[i], color=kolor[i][0], marker=kolor[i][1], label=n)
-    sub2.plot(s_w[i], p_w[i], color=kolor[i][0], marker=kolor[i][1], label=n)
-    sub3.plot(s_l[i], s_w[i], color=kolor[i][0], marker=kolor[i][1], label=n)
-    sub4.plot(p_w[i], p_l[i], color=kolor[i][0], marker=kolor[i][1], label=n)
+    sub1.plot(s_l[i], p_l[i], color=color[i][0], marker=color[i][1], label=n)
+    sub2.plot(s_w[i], p_w[i], color=color[i][0], marker=color[i][1], label=n)
+    sub3.plot(s_l[i], s_w[i], color=color[i][0], marker=color[i][1], label=n)
+    sub4.plot(p_w[i], p_l[i], color=color[i][0], marker=color[i][1], label=n)
 
-# opis wykresow
+# Plots descriptions
 fig1.suptitle('Dependences of selected features')
 sub1.set_title("Petal(Sepal) length")
 sub1.set_xlabel('Sepal length [cm]')
@@ -73,4 +74,3 @@ sub4.set_ylabel('Petal length [cm]')
 sub4.legend()
 
 plt.show()
-# - - - - - - - - - - - - - - - #
