@@ -39,3 +39,19 @@ The multi-layer perceptron was tested with various parameters:
 
 ### Decision regions for *Multi-layer perceptron* for different hidden layer sizes
 <img src="docs/imgs/MLP_bounds_plot.png" width="1000">
+
+### Accuracy for different activation functions and training algorithms 
+| Function | Alghorithm | Accuracy |
+|----------|------------|----------|
+| relu     | adam       | 96.57%   |
+| tanh     | adam       | 96.47%   |
+| relu     | sgd        | 89.60%   |
+| tanh     | sgd        | 94.90%   |
+
+### Accuracy for different number of hidden layers
+| Hidden layers    | Accuracy |
+|------------------|----------|
+| (10)             | 95.80%   |
+| (10, 10)         | 96.60%   |
+| (10, 10, 10)     | 96.77%   |
+| (10, 10, 10, 10) | 96.73%   |
