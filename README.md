@@ -1,6 +1,6 @@
 # Iris Species Classification
 This small project is an analysis of simple neural network with different classifiers, training algorithms, activation functions, and hidden layers sizes.
-The neural network is made with use of [**scikit-learn**](https://github.com/scikit-learn/scikit-learn) library.
+The neural network is made with use of [**scikit-learn**](https://github.com/scikit-learn/scikit-learn) library. Additionaly the [**NumPy**](https://github.com/numpy/numpy) and [**Matplotlib**](https://github.com/matplotlib/matplotlib) libraries were used for creating the graphs.
 
 ---
 
@@ -14,7 +14,7 @@ Used classifiers:
 - Simple perceptron
 - Multi-layer perceptron (MLP)
 
-The multi-layer perceptron was tested with various parameters.
+The multi-layer perceptron was tested with various parameters:
 
 1. Activation functions
    - relu
@@ -31,3 +31,11 @@ The multi-layer perceptron was tested with various parameters.
 ---
 
 # Results
+### Relationship between features for different species
+<img src="docs/imgs/features_plot.png" width="1000">
+
+### Decision regions for *K-nearest neighbors* for different K value
+<img src="docs/imgs/KNN_bounds_plot.png" width="1000">
+
+### Decision regions for *Multi-layer perceptron* for different hidden layer sizes
+<img src="docs/imgs/MLP_bounds_plot.png" width="1000">
