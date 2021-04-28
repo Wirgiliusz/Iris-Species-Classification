@@ -13,8 +13,6 @@ from warnings import simplefilter
 from sklearn.exceptions import ConvergenceWarning
 simplefilter("ignore", category=ConvergenceWarning)
 
-import numpy as np
-import matplotlib.pyplot as plt
 
 # - - - - - CLASSIFIERS TESTS FOR DIFFERENT PARAMETERS - - - - - # 
 # Loading iris data
